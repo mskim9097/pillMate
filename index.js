@@ -7,28 +7,21 @@ const db = require('./db');
 const { requireLogin } = require('./middleware/auth');
 
 const app = express();
+app.set('trust proxy', 1); // behind proxy (Render, etc.)
+
 const port = process.env.PORT || 3000;
 const expireTime = 60 * 60 * 1000;
 
-// views & middleware
+// views & parsers
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(__dirname + '/public'));
 
-// make user/auth available to all EJS
-app.use((req, res, next) => {
-    res.locals.user = req.session?.user || null;
-    res.locals.authenticated = !!req.session?.authenticated;
-    next();
-});
+// sessions (must come before res.locals injector)
+const cookieBase = { maxAge: expireTime, sameSite: 'lax' };
+if (process.env.NODE_ENV === 'production') cookieBase.secure = true;
 
-// sessions
-const cookieBase = { maxAge: expireTime };
-if (process.env.NODE_ENV === 'production') {
-    cookieBase.secure = true;
-    cookieBase.sameSite = 'lax';
-}
 app.use(session({
     store: new pgSession({
         pool: db.pool,
@@ -38,8 +31,16 @@ app.use(session({
     secret: process.env.SESSION_SECRET || 'devsecret',
     resave: false,
     saveUninitialized: false,
+    proxy: true,
     cookie: cookieBase
 }));
+
+// make user/auth available to all EJS
+app.use((req, res, next) => {
+    res.locals.user = req.session?.user || null;
+    res.locals.authenticated = !!req.session?.authenticated;
+    next();
+});
 
 // routers
 const authRouter = require('./routes/auth');
@@ -48,7 +49,7 @@ const supplementsRouter = require('./routes/supplements');
 const doseRouter = require('./routes/dose');
 
 app.use('/', authRouter);                    // landing, login, signup, logout
-app.use('/', dashboardRouter);               // /main (inside controller)
+app.use('/', dashboardRouter);               // /main
 app.use('/supplements', requireLogin, supplementsRouter);
 app.use('/dose', requireLogin, doseRouter);
 

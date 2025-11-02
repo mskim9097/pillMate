@@ -1,10 +1,13 @@
-// routes/auth.js
 const express = require('express');
 const router = express.Router();
 const { isLoggedIn } = require('../middleware/auth');
 const auth = require('../controllers/authController');
 
-router.get('/', auth.getLanding);
+// landing: redirect if already logged in
+router.get('/', (req, res) => {
+    if (isLoggedIn(req)) return res.redirect('/main');
+    return auth.getLanding(req, res);
+});
 
 router.get('/login', (req, res) => {
     if (isLoggedIn(req)) return res.redirect('/main');

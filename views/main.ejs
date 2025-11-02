@@ -10,9 +10,11 @@
                     <div>🌿</div>
                     <div>
                         <h1 class="h4 m-0 text-success">Welcome, <%= user?.fName || 'Friend' %>!</h1>
-                        <p class="mb-0 text-muted">Your timezone: <strong>
+                        <p class="mb-0 text-muted">
+                            Your timezone: <strong>
                                 <%= user?.tz || 'America/Vancouver' %>
-                            </strong></p>
+                            </strong>
+                        </p>
                     </div>
                 </section>
 
@@ -37,10 +39,17 @@
                                             <strong>
                                                 <%= t.localTime %>
                                             </strong> — <%= t.supplementName %>
+                                                <% if (t.dosage && t.dosage.trim()) { %>
+                                                    <span class="badge badge-strong ms-2">
+                                                        <%= t.dosage %>
+                                                    </span>
+                                                    <% } %>
                                         </div>
+
                                         <button
                                             class="mark-btn btn <%= isTaken ? 'btn-outline-secondary' : 'btn-success' %>"
-                                            <%=isTaken ? 'data-status="TAKEN"' : 'data-status="PENDING"' %>>
+                                            <%=isTaken ? 'data-status="TAKEN"' : 'data-status="PENDING"' %>
+                                            >
                                             <%= isTaken ? '✔ Taken' : 'Mark as Taken' %>
                                         </button>
                                     </li>
@@ -65,12 +74,12 @@
                                             <strong>
                                                 <%= s.name %>
                                             </strong>
-                                            <span class="badge badge-strong ms-2">
-                                                <%= s.dosage || '—' %>
-                                            </span>
+                                            <!-- dosage badge removed here -->
                                         </div>
                                         <button class="btn btn-success px-3" data-bs-toggle="modal"
-                                            data-bs-target="#supplementModal" data-id="<%= s.id %>">Edit</button>
+                                            data-bs-target="#supplementModal" data-id="<%= s.id %>">
+                                            Edit
+                                        </button>
                                     </li>
                                     <% }) %>
                             </ul>

@@ -47,6 +47,7 @@ exports.getDashboard = async (req, res) => {
           COALESCE(dl.log_id, 0)         AS id,
           s.supplement_id                AS supplement_id,
           s.supplement_name              AS supplement_name,
+          s.supplement_dosage            AS supplement_dosage,
           i.local_time_str               AS local_time,
           COALESCE(dl.status, 'PENDING') AS status
         FROM inst i
@@ -59,7 +60,7 @@ exports.getDashboard = async (req, res) => {
          AND (dl.scheduled_at AT TIME ZONE (SELECT name FROM tz))::date = (i.scheduled_local_ts)::date
          AND to_char(dl.scheduled_at AT TIME ZONE (SELECT name FROM tz), 'HH24:MI') = i.local_time_str
       )
-      SELECT id, supplement_id, local_time, supplement_name, status
+      SELECT id, supplement_id, local_time, supplement_name, supplement_dosage, status
       FROM joined
       ORDER BY local_time, supplement_name;
     `;
@@ -90,10 +91,11 @@ exports.getDashboard = async (req, res) => {
         }));
 
         const times = todayRes.rows.map(r => ({
-            id: r.id,                         // dose_log.log_id
+            id: r.id,                              // dose_log.log_id
             supplementId: Number(r.supplement_id),
-            localTime: r.local_time,          // "HH:MM"
+            localTime: r.local_time,               // "HH:MM"
             supplementName: r.supplement_name,
+            dosage: r.supplement_dosage || '',     // <-- add
             status: r.status
         }));
 
