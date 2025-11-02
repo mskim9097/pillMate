@@ -47,11 +47,13 @@ const authRouter = require('./routes/auth');
 const dashboardRouter = require('./routes/dashboard');
 const supplementsRouter = require('./routes/supplements');
 const doseRouter = require('./routes/dose');
+const profileRouter = require('./routes/profile');
 
 app.use('/', authRouter);                    // landing, login, signup, logout
 app.use('/', dashboardRouter);               // /main
 app.use('/supplements', requireLogin, supplementsRouter);
 app.use('/dose', requireLogin, doseRouter);
+app.use('/profile', profileRouter);
 
 // 404
 app.get(/.*/, (req, res) => res.status(404).render('404'));

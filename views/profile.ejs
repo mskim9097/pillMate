@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/head', { title: 'Profile – DailyDose' }) %>
+
+    <body>
+        <%- include('partials/header') %>
+
+            <main class="container py-4">
+                <h1 class="h4 text-success mb-3">My Profile</h1>
+
+                <% if (err) { %>
+                    <div class="alert alert-danger">
+                        <%= err %>
+                    </div>
+                    <% } %>
+                        <% if (msg) { %>
+                            <div class="alert alert-success">
+                                <%= msg %>
+                            </div>
+                            <% } %>
+
+                                <!-- Basic info -->
+                                <form class="bg-white p-3 rounded-3 shadow-sm mb-4" method="post" action="/profile">
+                                    <div class="mb-3">
+                                        <label class="form-label">First Name</label>
+                                        <input class="form-control" type="text" name="fName"
+                                            value="<%= user?.fName || '' %>" required />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Last Name</label>
+                                        <input class="form-control" type="text" name="lName"
+                                            value="<%= user?.lName || '' %>" required />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Email (read-only)</label>
+                                        <input class="form-control" type="email" value="<%= user?.email || '' %>"
+                                            readonly />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Time Zone</label>
+                                        <select class="form-select" name="timeZone" required>
+                                            <%- include('partials/timezone-options', { selected: user?.tz
+                                                || 'America/Vancouver' }) %>
+                                        </select>
+                                    </div>
+                                    <button class="btn btn-success" type="submit">Save</button>
+                                </form>
+
+                                <!-- Change password -->
+                                <form class="bg-white p-3 rounded-3 shadow-sm" method="post" action="/profile/password">
+                                    <h2 class="h6 text-success mb-3">Change Password</h2>
+                                    <div class="mb-3">
+                                        <label class="form-label">Current Password</label>
+                                        <input class="form-control" type="password" name="currentPassword" required />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">New Password</label>
+                                        <input class="form-control" type="password" name="newPassword" required />
+                                    </div>
+                                    <button class="btn btn-outline-success" type="submit">Update Password</button>
+                                </form>
+            </main>
+
+            <%- include('partials/footer') %>
+                <%- include('partials/footer-scripts') %>
+    </body>
+
+</html>

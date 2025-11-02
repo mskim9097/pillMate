@@ -1,14 +1,17 @@
-<!-- header.ejs -->
-<header class="d-flex align-items-center justify-content-between p-3 bg-white shadow-sm sticky-top">
-    <% const authed=!!(typeof user !=='undefined' && user); %>
-        <a class="brand text-decoration-none d-flex align-items-center gap-2 fw-bold text-success"
-            href="<%= authed ? '/main' : '/' %>">
+<header class="bg-white border-bottom">
+    <nav class="navbar container py-2">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="<%= authenticated ? '/main' : '/' %>">
             <span class="pill">💊</span> <span>DailyDose</span>
         </a>
-
-        <% if (authed) { %>
-            <form class="m-0" method="POST" action="/logout">
-                <button type="submit" class="btn btn-danger">Log out</button>
-            </form>
-            <% } %>
+        <div class="d-flex align-items-center gap-2">
+            <% if (authenticated) { %>
+                <a class="btn btn-outline-success btn-sm" href="/profile">Profile</a>
+                <form class="ms-2" method="POST" action="/logout">
+                    <button class="btn btn-danger btn-sm" type="submit">Log out</button>
+                </form>
+                <% } else { %>
+                    <a class="btn btn-success btn-sm" href="/login">Log in</a>
+                    <% } %>
+        </div>
+    </nav>
 </header>
