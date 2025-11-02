@@ -11,6 +11,11 @@ const app = express();
 const port = process.env.PORT || 3000;
 const expireTime = 60 * 60 * 1000; // 1 hour
 
+// Production behind proxy (Render)
+if (process.env.NODE_ENV === 'production') {
+    app.set('trust proxy', 1); // respect X-Forwarded-* for secure cookies
+}
+
 // views & middleware
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
@@ -18,11 +23,6 @@ app.use(express.json());
 app.use(express.static(__dirname + '/public'));
 
 // sessions in PostgreSQL
-const cookieBase = { maxAge: expireTime };
-if (process.env.NODE_ENV === 'production') {
-    cookieBase.secure = true;     // HTTPS only
-    cookieBase.sameSite = 'lax';
-}
 app.use(session({
     store: new pgSession({
         pool: db.pool,
@@ -32,7 +32,11 @@ app.use(session({
     secret: process.env.SESSION_SECRET || 'devsecret',
     resave: false,
     saveUninitialized: false,
-    cookie: cookieBase
+    cookie: {
+        maxAge: expireTime,
+        sameSite: 'lax',
+        secure: process.env.NODE_ENV === 'production', // HTTPS only in prod
+    },
 }));
 
 // routers
