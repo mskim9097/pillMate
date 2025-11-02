@@ -1,0 +1,14 @@
+<!-- header.ejs -->
+<header class="d-flex align-items-center justify-content-between p-3 bg-white shadow-sm sticky-top">
+    <% const authed=!!(typeof user !=='undefined' && user); %>
+        <a class="brand text-decoration-none d-flex align-items-center gap-2 fw-bold text-success"
+            href="<%= authed ? '/main' : '/' %>">
+            <span class="pill">💊</span> <span>DailyDose</span>
+        </a>
+
+        <% if (authed) { %>
+            <form class="m-0" method="POST" action="/logout">
+                <button type="submit" class="btn btn-danger">Log out</button>
+            </form>
+            <% } %>
+</header>

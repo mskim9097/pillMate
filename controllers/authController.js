@@ -1,4 +1,3 @@
-// controllers/authController.js
 const Joi = require('joi');
 const bcrypt = require('bcrypt');
 const db = require('../db');
@@ -8,6 +7,10 @@ const saltRounds = 12;
 
 // GET /
 exports.getLanding = (req, res) => {
+    // Redirect logged-in users to dashboard
+    if (req.session && req.session.authenticated) {
+        return res.redirect('/main');
+    }
     const s = req.session || {};
     res.render('index', {
         authenticated: !!s.authenticated,
@@ -23,7 +26,6 @@ exports.getLogin = (req, res) => {
 // POST /login
 exports.postLogin = async (req, res) => {
     const { email, password } = req.body;
-
     const schema = Joi.object({
         email: Joi.string().email().max(255).required(),
         password: Joi.string().max(255).required(),
@@ -76,7 +78,6 @@ exports.getSignup = (req, res) => {
 // POST /signup
 exports.postSignup = async (req, res) => {
     const { fName, lName, email, password, timeZone } = req.body;
-
     const schema = Joi.object({
         fName: Joi.string().max(30).required(),
         lName: Joi.string().max(30).required(),

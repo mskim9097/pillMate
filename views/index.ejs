@@ -1,43 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+<%- include('partials/head', { title: 'DailyDose' }) %>
 
-<head>
-    <meta charset="UTF-8" />
-    <title>DailyDose</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="/css/style.css" />
-</head>
+    <body>
+        <%- include('partials/header') %>
 
-<body class="bg-light">
-    <main class="container py-5">
-        <div class="text-center">
-            <div class="pill-icon mx-auto mb-3">💊</div>
-            <h1 class="fw-bold text-success mb-2">Welcome to DailyDose</h1>
+            <main class="landing container text-center py-5">
+                <div class="emoji fs-1">💊</div>
+                <h1 class="landing-title">Welcome to DailyDose</h1>
 
-            <% if (authenticated) { %>
-                <p class="text-muted">Hello, <strong>
-                        <%= name %>
-                    </strong>! You’re logged in.</p>
-                <div class="d-flex gap-2 justify-content-center">
+                <% if (authenticated) { %>
+                    <p>Hello, <strong>
+                            <%= name %>
+                        </strong>! You’re logged in and ready to stay healthy.</p>
                     <a href="/main" class="btn btn-success">Go to Dashboard</a>
-                    <form action="/logout" method="POST">
+                    <form class="d-inline-block ms-2" action="/logout" method="POST">
                         <button class="btn btn-danger">Log Out</button>
                     </form>
-                </div>
-                <% } else { %>
-                    <p class="text-muted">Your personal supplement & vitamin reminder assistant.</p>
-                    <div class="d-flex gap-2 justify-content-center">
-                        <a href="/login" class="btn btn-success">Log In</a>
-                        <a href="/signup" class="btn btn-outline-success">Sign Up</a>
-                    </div>
-                    <% } %>
+                    <% } else { %>
+                        <p>Your personal supplement & vitamin reminder assistant.</p>
+                        <div class="btn-group">
+                            <a href="/login" class="btn btn-success">Log In</a>
+                            <a href="/signup" class="btn btn-outline-success">Sign Up</a>
+                        </div>
+                        <% } %>
 
-                        <footer class="mt-5 text-muted">
-                            🌱 DailyDose &copy; <%= new Date().getFullYear() %>
-                        </footer>
-        </div>
-    </main>
-</body>
+                            <footer class="mt-5 text-muted">
+                                <p>🌱 DailyDose &copy; <%= new Date().getFullYear() %> — Stay consistent, stay healthy!
+                                </p>
+                            </footer>
+            </main>
+
+            <%- include('partials/footer-scripts') %>
+    </body>
 
 </html>
