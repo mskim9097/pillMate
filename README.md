@@ -19,6 +19,7 @@ You can **sign up**, **log in**, **add supplements with dosage and scheduled tim
 🔁 **Mark as Taken / Undo Taken** toggle  
 🌐 **Timezone support** for accurate scheduling  
 🎨 **Responsive design** using **Bootstrap 5**  
+🕓 **The dashboard automatically refreshes supplement statuses daily based on the user's timezone**
 
 ---
 
