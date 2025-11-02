@@ -1,0 +1,61 @@
+<% const sel=(typeof selected !=='undefined' && selected) ? selected : (user?.tz || 'America/Vancouver' ); function
+    opt(val, label=val) { %>
+    <option value="<%= val %>" <%=sel===val ? 'selected' : '' %>><%= label %>
+    </option>
+    <% } %>
+
+        <optgroup label="🇨🇦 Canada / 🇺🇸 USA">
+            <% opt('America/Vancouver', 'America/Vancouver (PT)' ) %>
+                <% opt('America/Los_Angeles', 'America/Los_Angeles (PT)' ) %>
+                    <% opt('America/Denver', 'America/Denver (MT)' ) %>
+                        <% opt('America/Chicago', 'America/Chicago (CT)' ) %>
+                            <% opt('America/Toronto', 'America/Toronto (ET)' ) %>
+                                <% opt('America/New_York', 'America/New_York (ET)' ) %>
+                                    <% opt('America/Anchorage', 'America/Anchorage (AKT)' ) %>
+                                        <% opt('Pacific/Honolulu', 'Pacific/Honolulu (HST)' ) %>
+        </optgroup>
+
+        <optgroup label="🌎 Latin America">
+            <% opt('America/Mexico_City') %>
+                <% opt('America/Bogota') %>
+                    <% opt('America/Lima') %>
+                        <% opt('America/Santiago') %>
+                            <% opt('America/Sao_Paulo') %>
+        </optgroup>
+
+        <optgroup label="🇪🇺 Europe">
+            <% opt('Europe/London') %>
+                <% opt('Europe/Dublin') %>
+                    <% opt('Europe/Paris') %>
+                        <% opt('Europe/Berlin') %>
+                            <% opt('Europe/Madrid') %>
+                                <% opt('Europe/Rome') %>
+                                    <% opt('Europe/Athens') %>
+                                        <% opt('Europe/Istanbul') %>
+                                            <% opt('Europe/Moscow') %>
+        </optgroup>
+
+        <optgroup label="🌏 Asia">
+            <% opt('Asia/Seoul') %>
+                <% opt('Asia/Tokyo') %>
+                    <% opt('Asia/Shanghai') %>
+                        <% opt('Asia/Singapore') %>
+                            <% opt('Asia/Hong_Kong') %>
+                                <% opt('Asia/Bangkok') %>
+                                    <% opt('Asia/Kolkata') %>
+                                        <% opt('Asia/Dubai') %>
+        </optgroup>
+
+        <optgroup label="🌍 Africa / Middle East">
+            <% opt('Africa/Cairo') %>
+                <% opt('Africa/Johannesburg') %>
+                    <% opt('Africa/Nairobi') %>
+                        <% opt('Asia/Jerusalem') %>
+        </optgroup>
+
+        <optgroup label="🇦🇺 Oceania / Pacific">
+            <% opt('Australia/Sydney') %>
+                <% opt('Pacific/Auckland') %>
+                    <% opt('Pacific/Fiji') %>
+                        <% opt('Pacific/Kiritimati', 'Pacific/Kiritimati (UTC+14)' ) %>
+        </optgroup>

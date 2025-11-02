@@ -31,11 +31,7 @@
 
                             <label class="mt-3">Time Zone:</label>
                             <select class="form-select" name="timeZone">
-                                <option value="America/Vancouver">America/Vancouver</option>
-                                <option value="America/Toronto">America/Toronto</option>
-                                <option value="America/New_York">America/New_York</option>
-                                <option value="Asia/Seoul">Asia/Seoul</option>
-                                <option value="Europe/London">Europe/London</option>
+                                <%- include('partials/timezone-options', { selected: null }) %>
                             </select>
 
                             <button class="btn btn-success w-100 mt-3" type="submit">Sign Up</button>
