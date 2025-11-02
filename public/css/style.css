@@ -1,0 +1,29 @@
+:root{
+  --mint:#2dd4bf;
+  --green:#198754; /* bootstrap success tone */
+}
+
+/* brand pill icon */
+.pill-icon{
+  width:28px; height:28px; border-radius:8px;
+  display:inline-flex; align-items:center; justify-content:center;
+  background:linear-gradient(180deg,#2dd4bf,#22c55e);
+  color:#052e16; font-size:18px;
+}
+
+/* Today button look */
+.mark-btn{ min-width: 150px; font-weight: 600; }
+.mark-btn.btn-outline-secondary{ color:#6c757d; }
+
+/* Stronger, readable dosage badge in "My supplements" */
+.badge-strong{
+  background:#e0f2f1;
+  color:#004d40;
+  font-weight:700;
+  border:1px solid rgba(0,0,0,.08);
+  padding:.25rem .6rem;
+  border-radius:999px;
+  display:inline-block;
+}
+
+/* 404 & landing minor helpers are handled by Bootstrap (no extra rules) */
