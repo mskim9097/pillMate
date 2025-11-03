@@ -36,3 +36,11 @@
   border-radius: 999px;
   display: inline-block;
 }
+
+
+.img-404 {
+  max-width: 220px;
+  filter:
+    drop-shadow(0 0 0 #d7e2da) drop-shadow(0 6px 16px rgba(0, 0, 0, .08));
+  opacity: .98;
+}

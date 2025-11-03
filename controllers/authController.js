@@ -101,7 +101,7 @@ exports.postSignup = async (req, res) => {
       RETURNING user_id, user_email, user_fname, user_lname, user_time_zone
     `;
         const { rows } = await db.query(insertSql, [
-            v.value.email, hash, v.value.fName, v.value.LName, v.value.timeZone,
+            v.value.email, hash, v.value.fName, v.value.lName, v.value.timeZone,
         ]);
 
         const u = rows[0];

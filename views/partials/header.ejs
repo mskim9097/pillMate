@@ -1,7 +1,8 @@
 <header class="bg-white border-bottom">
     <nav class="navbar container py-2">
         <a class="navbar-brand d-flex align-items-center gap-2" href="<%= authenticated ? '/main' : '/' %>">
-            <span class="pill">💊</span> <span>DailyDose</span>
+            <img src="/favicon.png" alt="DailyDose logo" width="28" height="28" class="pill" />
+            <span>PillMate</span>
         </a>
         <div class="d-flex align-items-center gap-2">
             <% if (authenticated) { %>

@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-<%- include('partials/head', { title: 'DailyDose' }) %>
+<%- include('partials/head', { title: 'PillMate' }) %>
 
     <body>
         <%- include('partials/header') %>
 
             <main class="landing container text-center py-5">
-                <div class="emoji fs-1">💊</div>
-                <h1 class="landing-title">Welcome to DailyDose</h1>
+                <div class="emoji fs-1">
+                    <img src="/favicon.png" alt="PillMate logo" width="64" height="64" class="pill" />
+                </div>
+                <h1 class="landing-title">Welcome to PillMate</h1>
 
                 <% if (authenticated) { %>
                     <p>Hello, <strong>
@@ -26,7 +28,7 @@
                         <% } %>
 
                             <footer class="mt-5 text-muted">
-                                <p>🌱 DailyDose &copy; <%= new Date().getFullYear() %> — Stay consistent, stay healthy!
+                                <p>🌱 PillMate &copy; <%= new Date().getFullYear() %> — Stay consistent, stay healthy!
                                 </p>
                             </footer>
             </main>
